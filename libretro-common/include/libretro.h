@@ -1105,11 +1105,7 @@ struct retro_vfs_interface_info
                                            /* struct retro_vfs_interface_info * --
                                             * Gets access to the VFS interface.
                                             *
-                                            * Typically, VFS paths are given to the core by the frontend. In this case,
-                                            * the core must not deduce any meaning beyond the basename of the path. It
-                                            * can use the preceding string for relative file access.
-                                            *
-                                            * The VFS interface allows for cores to use the following schemes:
+                                            * This interface exposes two schemes that a core may use:
                                             *
                                             * file://    The path represents a true path on the file system. This allows
                                             *            the core to use VFS for all I/O.
@@ -1117,9 +1113,11 @@ struct retro_vfs_interface_info
                                             * retro://   A special scheme that allows for location-agnostic I/O. Cores
                                             *            have access to the following locations:
                                             *
-                                            *            retro://assets/    The asset folder for standalone applications. Read-only.
+                                            *            retro://assets/    The assets folder for standalone applications. Read-only.
                                             *
-                                            *            retro://system/    The system directory. Read-only.
+                                            *            retro://system/    The directory for content such as configuration files. Read-only.
+                                            *
+                                            *            retro://bios/      The BIOS and firmware directory. Read-only.
                                             *
                                             *            retro://save/      The saves directory. Read-write.
                                             */
