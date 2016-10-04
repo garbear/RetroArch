@@ -1113,6 +1113,9 @@ struct retro_vfs_interface_info
                                             * retro://   A special scheme that allows for location-agnostic I/O. Cores
                                             *            have access to the following locations:
                                             *
+                                            *            retro://game/      The folder containing the loaded game. If no game is loaded,
+                                            *                               listing this directory will return empty. Read-only.
+                                            *
                                             *            retro://assets/    The assets folder for standalone applications. Read-only.
                                             *
                                             *            retro://system/    The directory for content such as configuration files. Read-only.
