@@ -1007,7 +1007,7 @@ struct retro_hw_render_context_negotiation_interface
                                             */
 
 /* File open modes */
-enum retro_open_mode
+enum retro_vfs_open_mode
 {
    RETRO_RDONLY,
    RETRO_WRONLY,
@@ -1018,32 +1018,33 @@ enum retro_open_mode
 /* Opaque file handle */
 typedef struct retro_file retro_file;
 
-/* Open a file for reading or writing. Returns the opaque file handle, or NULL for error. */
-typedef struct retro_file* (RETRO_CALLCONV *retro_open_file_t)(const char *path, retro_open_mode mode);
+/* Open a file for reading or writing. If path points to a directory, this will
+ * fail. Returns the opaque file handle, or NULL for error. */
+typedef struct retro_file* (RETRO_CALLCONV *retro_vfs_open_file_t)(const char *path, enum retro_vfs_open_mode mode);
 
 /* Read data from a file. Returns the number of bytes read, or -1 for error. */
-typedef int64_t (RETRO_CALLCONV *retro_read_file_t)(struct retro_file *file, uint8_t *buffer, size_t buffer_size);
+typedef int64_t (RETRO_CALLCONV *retro_vfs_read_file_t)(struct retro_file *file, uint8_t *buffer, size_t buffer_size);
 
 /* Write data to a file. Returns the number of bytes written, or -1 for error. */
-typedef int64_t (RETRO_CALLCONV *retro_write_file_t)(struct retro_file *file, const uint8_t *buffer, size_t buffer_size);
+typedef int64_t (RETRO_CALLCONV *retro_vfs_write_file_t)(struct retro_file *file, const uint8_t *buffer, size_t buffer_size);
 
 /* Set the current read/write position for the file. Returns the new position, -1 for error. */
-typedef int64_t (RETRO_CALLCONV *retro_seek_file_t)(struct retro_file *file, uint64_t position);
+typedef int64_t (RETRO_CALLCONV *retro_vfs_seek_file_t)(struct retro_file *file, uint64_t position);
 
 /* Get the current read/write position for the file. Returns -1 for error. */
-typedef int64_t (RETRO_CALLCONV *retro_get_file_position_t)(struct retro_file *file);
+typedef int64_t (RETRO_CALLCONV *retro_vfs_get_file_position_t)(struct retro_file *file);
 
 /* Return the size of the file in bytes, or -1 for error. */
-typedef int64_t (RETRO_CALLCONV *retro_get_file_size_t)(struct retro_file *file);
+typedef int64_t (RETRO_CALLCONV *retro_vfs_get_file_size_t)(struct retro_file *file);
 
 /* Truncate a file to the requested size. Returns the new size, or -1 for error. */
-typedef int64_t (RETRO_CALLCONV *retro_truncate_file_t)(struct retro_file *file);
+typedef int64_t (RETRO_CALLCONV *retro_vfs_truncate_file_t)(struct retro_file *file);
 
 /* Close the file and release its resources. Must be called if open_file returns non-NULL. */
-typedef void (RETRO_CALLCONV *retro_close_file_t)(struct retro_file *file);
+typedef void (RETRO_CALLCONV *retro_vfs_close_file_t)(struct retro_file *file);
 
 /* Delete the specified file. Returns true if the file was deleted. */
-typedef bool (RETRO_CALLCONV *retro_remove_file_t)(const char *path);
+typedef bool (RETRO_CALLCONV *retro_vfs_remove_file_t)(const char *path);
 
 /* Stat fields */
 struct retro_file_info
@@ -1056,36 +1057,36 @@ struct retro_file_info
 };
 
 /* Get the properties of a file or directory. Returns false if the path doesn't exist. */
-typedef bool (RETRO_CALLCONV *retro_stat_file_t)(const char *path, struct retro_file_info *buffer);
+typedef bool (RETRO_CALLCONV *retro_vfs_stat_file_t)(const char *path, struct retro_file_info *buffer);
 
 /* Create an empty directory. Parent directories will be created as needed. */
-typedef bool (RETRO_CALLCONV *retro_create_directory_t)(const char *path);
+typedef bool (RETRO_CALLCONV *retro_vfs_create_directory_t)(const char *path);
 
 /* Remove a directory and its contents. */
-typedef bool (RETRO_CALLCONV *retro_remove_directory_t)(const char *path);
+typedef bool (RETRO_CALLCONV *retro_vfs_remove_directory_t)(const char *path);
 
 /* Get the contents of a directory in lexicographical order. Does not include '.' or '..'. */
-typedef bool (RETRO_CALLCONV *retro_list_directory_t)(const char *path, char ***items, unsigned int *item_count);
+typedef bool (RETRO_CALLCONV *retro_vfs_list_directory_t)(const char *path, char ***items, unsigned int *item_count);
 
 /* Free the list obtained by list_directory. Must be called if list_directory returns true. */
-typedef void (RETRO_CALLCONV *retro_free_directory_t)(char **items, unsigned int item_count);
+typedef void (RETRO_CALLCONV *retro_vfs_free_directory_t)(char **items, unsigned int item_count);
 
 struct retro_vfs_interface
 {
-   retro_open_file_t open_file;
-   retro_read_file_t read_file;
-   retro_write_file_t write_file;
-   retro_seek_file_t seek_file;
-   retro_get_file_position_t get_file_position;
-   retro_get_file_size_t get_file_size;
-   retro_truncate_file_t truncate_file;
-   retro_close_file_t close_file;
-   retro_stat_file_t stat_file;
-   retro_remove_file_t remove_file;
-   retro_create_directory_t create_directory;
-   retro_remove_directory_t remove_directory;
-   retro_list_directory_t list_directory;
-   retro_free_directory_t free_directory;
+   retro_vfs_open_file_t open_file;
+   retro_vfs_read_file_t read_file;
+   retro_vfs_write_file_t write_file;
+   retro_vfs_seek_file_t seek_file;
+   retro_vfs_get_file_position_t get_file_position;
+   retro_vfs_get_file_size_t get_file_size;
+   retro_vfs_truncate_file_t truncate_file;
+   retro_vfs_close_file_t close_file;
+   retro_vfs_stat_file_t stat_file;
+   retro_vfs_remove_file_t remove_file;
+   retro_vfs_create_directory_t create_directory;
+   retro_vfs_remove_directory_t remove_directory;
+   retro_vfs_list_directory_t list_directory;
+   retro_vfs_free_directory_t free_directory;
 };
 
 struct retro_vfs_interface_info
