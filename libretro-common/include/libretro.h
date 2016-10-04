@@ -1065,7 +1065,9 @@ typedef bool (RETRO_CALLCONV *retro_vfs_create_directory_t)(const char *path);
 /* Remove a directory and its contents. */
 typedef bool (RETRO_CALLCONV *retro_vfs_remove_directory_t)(const char *path);
 
-/* Get the contents of a directory in lexicographical order. Does not include '.' or '..'. */
+/* Get the contents of a directory. Does not include '.' or '..' entries. If
+ * this sets 'item_count' to greater than zero, then 'items' will point to an
+ * array of strings in lexicographical order. */
 typedef bool (RETRO_CALLCONV *retro_vfs_list_directory_t)(const char *path, char ***items, unsigned int *item_count);
 
 /* Free the list obtained by list_directory. Must be called if list_directory returns true. */
