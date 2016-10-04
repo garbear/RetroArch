@@ -1006,20 +1006,20 @@ struct retro_hw_render_context_negotiation_interface
                                             * recognize or support. Should be set in either retro_init or retro_load_game, but not both.
                                             */
 
-/* File open flags*/
-enum retro_open_flag
+/* File open modes */
+enum retro_open_mode
 {
-   RETRO_RDONLY    = 0x0000,
-   RETRO_WRONLY    = 0x0001,
-   RETRO_RDWR      = 0x0002,
-   RETRO_OVERWRITE = 0x0004,
+   RETRO_RDONLY,
+   RETRO_WRONLY,
+   RETRO_RDWR,
+   RETRO_RDWR_TRUNC,
 };
 
 /* Opaque file handle */
 typedef struct retro_file retro_file;
 
 /* Open a file for reading or writing. Returns the opaque file handle, or NULL for error. */
-typedef struct retro_file* (RETRO_CALLCONV *retro_open_file_t)(const char *path, int flags);
+typedef struct retro_file* (RETRO_CALLCONV *retro_open_file_t)(const char *path, retro_open_mode mode);
 
 /* Read data from a file. Returns the number of bytes read, or -1 for error. */
 typedef int64_t (RETRO_CALLCONV *retro_read_file_t)(struct retro_file *file, uint8_t *buffer, size_t buffer_size);
