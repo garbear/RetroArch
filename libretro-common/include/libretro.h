@@ -1006,11 +1006,6 @@ struct retro_hw_render_context_negotiation_interface
                                             * recognize or support. Should be set in either retro_init or retro_load_game, but not both.
                                             */
 
-/* Resolve a VFS path into a local path. Returns false if the protocol does not
- * redirect to a single local path. Otherwise, 'local_path' will be set to a
- * path on the local filesystem. */
-typedef bool (RETRO_CALLCONV *retro_vfs_resolve_path_t)(const char *vfs_path, char *local_path, size_t max_size);
-
 /* File open modes */
 enum retro_vfs_open_mode
 {
@@ -1080,7 +1075,6 @@ typedef void (RETRO_CALLCONV *retro_vfs_free_directory_t)(char **items, unsigned
 
 struct retro_vfs_interface
 {
-   retro_vfs_resolve_path_t resolve_path;
    retro_vfs_open_file_t open_file;
    retro_vfs_read_file_t read_file;
    retro_vfs_write_file_t write_file;
