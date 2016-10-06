@@ -1037,8 +1037,8 @@ typedef int64_t (RETRO_CALLCONV *retro_vfs_get_file_position_t)(struct retro_fil
 /* Return the size of the file in bytes, or -1 for error. */
 typedef int64_t (RETRO_CALLCONV *retro_vfs_get_file_size_t)(struct retro_file *file);
 
-/* Truncate a file to the requested size. Returns the new size, or -1 for error. */
-typedef int64_t (RETRO_CALLCONV *retro_vfs_truncate_file_t)(struct retro_file *file);
+/* Extend or truncate a file to the requested size. Returns the new size, or -1 for error. */
+typedef int64_t (RETRO_CALLCONV *retro_vfs_resize_file_t)(struct retro_file *file, uint64_t size);
 
 /* Close the file and release its resources. Must be called if open_file returns non-NULL. */
 typedef void (RETRO_CALLCONV *retro_vfs_close_file_t)(struct retro_file *file);
@@ -1081,7 +1081,7 @@ struct retro_vfs_interface
    retro_vfs_seek_file_t seek_file;
    retro_vfs_get_file_position_t get_file_position;
    retro_vfs_get_file_size_t get_file_size;
-   retro_vfs_truncate_file_t truncate_file;
+   retro_vfs_resize_file_t resize_file;
    retro_vfs_close_file_t close_file;
    retro_vfs_stat_file_t stat_file;
    retro_vfs_remove_file_t remove_file;
