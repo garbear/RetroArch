@@ -1115,10 +1115,6 @@ struct retro_vfs_interface_info
                                             *     A special scheme that allows for location-agnostic I/O. Cores
                                             *     have access to the following locations:
                                             *
-                                            *     file://
-                                            *         The path represents a true path on the file system. This allows
-                                            *            the core to use VFS for all I/O.
-                                            *
                                             *     retro://game/
                                             *         The folder containing the loaded game. If no game is loaded,
                                             *         listing this directory will return empty. Read-only.
