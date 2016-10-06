@@ -1105,24 +1105,33 @@ struct retro_vfs_interface_info
                                            /* struct retro_vfs_interface_info * --
                                             * Gets access to the VFS interface.
                                             *
-                                            * This interface exposes two schemes that a core may use:
+                                            * This interface exposes the following schemes that a core may use:
                                             *
-                                            * file://    The path represents a true path on the file system. This allows
+                                            * file://
+                                            *     The path represents a true path on the file system. This allows
+                                            *     the core to use VFS for all I/O.
+                                            *
+                                            * retro://
+                                            *     A special scheme that allows for location-agnostic I/O. Cores
+                                            *     have access to the following locations:
+                                            *
+                                            *     file://
+                                            *         The path represents a true path on the file system. This allows
                                             *            the core to use VFS for all I/O.
                                             *
-                                            * retro://   A special scheme that allows for location-agnostic I/O. Cores
-                                            *            have access to the following locations:
+                                            *     retro://game/
+                                            *         The folder containing the loaded game. If no game is loaded,
+                                            *         listing this directory will return empty. Read-only.
                                             *
-                                            *            retro://game/      The folder containing the loaded game. If no game is loaded,
-                                            *                               listing this directory will return empty. Read-only.
+                                            *     retro://assets/
+                                            *         The assets folder for standalone applications. Read-only.
                                             *
-                                            *            retro://assets/    The assets folder for standalone applications. Read-only.
+                                            *     retro://system/
+                                            *         The "system" directory used to store system-specific
+                                            *         content such as BIOSes, configuration data, etc. Read-only.
                                             *
-                                            *            retro://system/    The directory for content such as configuration files. Read-only.
-                                            *
-                                            *            retro://bios/      The BIOS and firmware directory. Read-only.
-                                            *
-                                            *            retro://save/      The saves directory. Read-write.
+                                            *     retro://save/
+                                            *         The saves directory. Read-write.
                                             */
 
 #define RETRO_MEMDESC_CONST     (1 << 0)   /* The frontend will never change this memory area once retro_load_game has returned. */
