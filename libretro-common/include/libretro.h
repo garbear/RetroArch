@@ -1020,7 +1020,7 @@ typedef struct retro_file retro_file;
 
 /* Open a file for reading or writing. If path points to a directory, this will
  * fail. Returns the opaque file handle, or NULL for error. */
-typedef struct retro_file* (RETRO_CALLCONV *retro_vfs_open_file_t)(const char *path, enum retro_vfs_open_mode mode);
+typedef struct retro_file *(RETRO_CALLCONV *retro_vfs_open_file_t)(const char *path, enum retro_vfs_open_mode mode);
 
 /* Read data from a file. Returns the number of bytes read, or -1 for error. */
 typedef int64_t (RETRO_CALLCONV *retro_vfs_read_file_t)(struct retro_file *file, uint8_t *buffer, size_t buffer_size);
