@@ -20,15 +20,20 @@
 #include <string.h>
 
 static struct vfs_driver_t *vfs_drivers[] = {
-   &vfs_local_driver,
+   &vfs_posix_driver,
    &vfs_retro_driver,
+   &vfs_win_driver,
    NULL,
 };
 
 struct vfs_driver_t *vfs_get_driver(const char* path)
 {
    if (strcmp("file://", path) == 0)
-      return &vfs_local_driver;
+#ifdef WIN32
+      return &vfs_win_driver;
+#else
+      return &vfs_posix_driver;
+#endif
 
    if (strcmp("retro://", path) == 0)
       return &vfs_retro_driver;

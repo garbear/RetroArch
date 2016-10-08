@@ -35,8 +35,9 @@ typedef struct vfs_driver_t
    bool (*list_directory)(const char *path, char ***items, unsigned int *item_count);
 } vfs_driver_t;
 
-extern struct vfs_driver_t vfs_local_driver;
+extern struct vfs_driver_t vfs_posix_driver;
 extern struct vfs_driver_t vfs_retro_driver;
+extern struct vfs_driver_t vfs_win_driver;
 
 /**
  * init_vfs:

@@ -16,51 +16,51 @@
 
 #include "vfs_driver.h"
 
-static void local_vfs_init(void)
+static void win_vfs_init(void)
 {
 }
 
-static void local_vfs_deinit()
+static void win_vfs_deinit()
 {
 }
 
-bool local_vfs_translate_path(const char *path, char* target_dir, size_t target_dir_size)
+bool win_vfs_translate_path(const char *path, char* target_dir, size_t target_dir_size)
 {
    return false;
 }
 
-bool local_vfs_stat_file(const char *path, struct retro_file_info *buffer)
+bool win_vfs_stat_file(const char *path, struct retro_file_info *buffer)
 {
    return false; // TODO
 }
 
-bool local_vfs_remove_file(const char *path)
+bool win_vfs_remove_file(const char *path)
 {
    return false; // TODO
 }
 
-bool local_vfs_create_directory(const char *path)
+bool win_vfs_create_directory(const char *path)
 {
    return false; // TODO
 }
 
-bool local_vfs_remove_directory(const char *path)
+bool win_vfs_remove_directory(const char *path)
 {
    return false; // TODO
 }
 
-bool local_vfs_list_directory(const char *path, char ***items, unsigned int *item_count)
+bool win_vfs_list_directory(const char *path, char ***items, unsigned int *item_count)
 {
    return false; // TODO
 }
 
-struct vfs_driver_t vfs_local_driver = {
-   local_vfs_init,
-   local_vfs_deinit,
-   local_vfs_translate_path,
-   local_vfs_stat_file,
-   local_vfs_remove_file,
-   local_vfs_create_directory,
-   local_vfs_remove_directory,
-   local_vfs_list_directory,
+struct vfs_driver_t vfs_win_driver = {
+   win_vfs_init,
+   win_vfs_deinit,
+   win_vfs_translate_path,
+   win_vfs_stat_file,
+   win_vfs_remove_file,
+   win_vfs_create_directory,
+   win_vfs_remove_directory,
+   win_vfs_list_directory,
 };
