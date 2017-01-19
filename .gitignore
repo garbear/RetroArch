@@ -91,3 +91,7 @@ obj-unix/
 
 .MAKEFILE_DEFINES
 .CONFIG_DEFINES
+
+.cproject
+.project
+.settings/
